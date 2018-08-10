@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>리스트 스타일</title>
+<style>
+ol {
+	list-style-type: katakana;
+}
+
+ul {
+	list-style-image: url(images/egg.png)
+}
+/*배경 색상 만들기*/
+h3 {
+	background-color: skyblue;
+	border-width: 5px;
+	border-style: solid;
+	border-top-color: gold;
+	border-bottom-color: salmon;
+}
+
+h3:active {
+	background-color: skyblue;
+	border-width: 5px;
+	border-style: solid;
+	border-top-color: teal;
+	border-bottom-color: red;
+	margin: 2px
+}
+
+h3:hover {
+	background-color: papayawhip;
+}
+/*배경 이미지 만들기*/
+/*body {
+background:url(images/tomato.png) left bottom repeat-x; /*Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e6ef2f+0,1e5799+22,1e5799+22,4d1f9e+48,7db9e8+100&1+0,0+100 */
+/*background: -moz-linear-gradient(top, rgba(230,239,47,1) 0%, rgba(30,87,153,0.78) 22%, rgba(77,31,158,0.52) 48%, rgba(125,185,232,0) 100%); /* FF3.6-15 */
+/*background: -webkit-linear-gradient(top, rgba(230,239,47,1) 0%,rgba(30,87,153,0.78) 22%,rgba(77,31,158,0.52) 48%,rgba(125,185,232,0) 100%); /* Chrome10-25,Safari5.1-6 */
+/*background: linear-gradient(to bottom, rgba(230,239,47,1) 0%,rgba(30,87,153,0.78) 22%,rgba(77,31,158,0.52) 48%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6ef2f', endColorstr='#007db9e8',GradientType=0 ); /* IE6-9 */
+/*}*/
+#radius {
+	width: 50px;
+	height: 50px;
+	background-color: forestgreen;
+	border-radius: 0px 100px 100px 0px;
+}
+
+div {
+	float: left
+}
+
+section {
+	display: block;
+}
+</style>
+</head>
+<body>
+	<div>가</div>
+	<div>나</div>
+	<br />
+	<a href="#"><h3>Full Stack</h3></a>
+	<ol>
+		<li id="radius">Java</li>
+		<li>자료구조</li>
+		<li>알고리즘</li>
+		<li>데이터베이스</li>
+		<li>Front End</li>
+		<li>Java Web Programming</li>
+		<li>Android</li>
+		<li>iOS</li>
+	</ol>
+	<h3>많이 사용하는 프로그래밍 언어</h3>
+	<ul>
+		<li>JavaScript</li>
+		<li>C & C++</li>
+		<li>Java</li>
+		<li>C#</li>
+		<li>Python</li>
+		<li>R</li>
+		<li>Swift</li>
+		<li>Kotlin</li>
+		<li>SQL</li>
+		<li>Scala</li>
+	</ul>
+</body>
+</html>

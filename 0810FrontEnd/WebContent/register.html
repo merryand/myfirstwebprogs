@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+</head>
+<body>
+	<form>
+		<table align="center">
+
+			<tr>
+				<td colspan="2" align="center">
+					<h2>회원가입</h2>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">이메일&nbsp;</td>
+				<td>&nbsp; <input type="text" name="email" id="email" size="30" />
+					<div id="emaildiv"></div>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">비밀번호&nbsp;</td>
+				<td>&nbsp; <input type="password" name="password" size="20" />
+				</td>
+			</tr>
+			<tr>
+				<td align="right">비밀번호 확인&nbsp;</td>
+				<td>&nbsp; <input type="password" name="password" size="20" />
+				</td>
+			</tr>
+			<tr>
+				<td align="right">성별&nbsp;</td>
+				<td>&nbsp; <input type="radio" name="gender" value="man"
+					checked="checked" />남자 &nbsp; <input type="radio" name="gender"
+					value="woman" /> 여자
+				</td>
+			</tr>
+			<tr>
+				<td align="right">전화번호&nbsp;</td>
+				<td>&nbsp; <select name="phone">
+						<option value="010">010</option>
+						<option value="011">011</option>
+				</select> <input type="text" size="8" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="reset" value="작성취소" />
+					&nbsp;<input type="submit" value="회원가입" /> &nbsp;<input
+					type="button" value="메인으로" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+<script>document.getElementById("email").onblur = function(){document.getElementById("emaildiv").innerHTML="사용 불가능한 이메일입니다."}
+</script>
+</html>

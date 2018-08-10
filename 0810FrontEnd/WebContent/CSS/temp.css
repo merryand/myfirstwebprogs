@@ -1,0 +1,8 @@
+h3{color:blue;}
+
+.article, #atid{color:forestgreen;}
+
+/*주석입니다*/
+h3:hover{color:gray;}
+h3:active{background:pink;}
+h4{font-size:100px; text-shadow: 5px 5px #ff00ff, 10px 10px gray;}
