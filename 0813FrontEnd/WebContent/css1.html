@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSS</title>
+<style>
+#pid {
+	width: 200px;
+	background: #fdd;
+	border: 2px solid #123456;
+	outline: 2px solid #ffaa00;
+	outline-offset: 3px;
+	resize: both;
+	overflow: auto;
+}
+
+div {
+	background-color: papayawhip;
+	width: 300px;
+	height: 100px;
+	-webkit-transform: rotate(30deg);
+	-moz-transform: rotate(30deg);
+	-ms-transform: rotate(30deg);
+}
+
+a {
+	/*주의에 아무것도 배치되지 않도록 블록요소로 변경*/
+	display: block;
+	width: 200px;
+	height: 30px;
+	background: coral;
+	
+	-webkit-transition: all 1.0s
+}
+
+a:hover {
+	width: 500px;
+	background-color:skyblue;
+	opacity: 0.5;
+}
+</style>
+</head>
+<body>
+	<h2>CSS - resize와 outline</h2>
+	<p class="content" id="pid">오늘은 CSS에서 어려운 과정을 한다는 것 같아요 오후에
+		JavaScript도 들어가겠죠? 아직도 뭐가 뭔지 아주 헷갈려요 이클립스는 왜 오류가 떴다 안떴다가 하는 거죠?</p>
+	<div></div>
+	<a href="#">애니메이션 메뉴</a>
+</body>
+</html>

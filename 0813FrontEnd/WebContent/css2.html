@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>반응형 웹디자인</title>
+<Style>
+img {
+	width: 24%;
+	height: 100px;
+}
+
+/*화면의 너비가 960픽셀까지 적용할 css*/
+@media screen and(max-width:960px) {
+	img {
+		width: 48%;
+		height: 70px;
+	}
+}
+/*화면의 너비가 480픽셀까지 적용할 css*/
+@media screen and(max-width:480px) {
+	img {
+		width: 96%;
+		height: 50px;
+	}
+}
+</style>
+</head>
+<body>
+	<img src="images/alpacaaa.png">
+	<img src="images/egg.png">
+	<img src="images/tomato.png">
+	<img src="images/milk.png">
+</body>
+</html>
