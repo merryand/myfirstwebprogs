@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>타이머 관련 함수</title>
+</head>
+<body>
+	<img src="images/9.png" id="count" />
+</body>
+<script>
+	alert(navigator.userAgent)
+	//1초 마다 수행되는 타이머
+	var img = document.getElementById("count")
+	var idx = 8
+	var t = setInterval(function() {
+		img.src = "images/" + idx + ".png"
+		idx = idx - 1
+	}, 1000)
+	
+	//9초 후에 한번만 동작하는 타이머
+	setTimeout(function() {
+		clearInterval(t)
+		window.location = "index.html"
+	}, 9000)
+</script>
+
+</html>

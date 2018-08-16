@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	//사파리에서 접속하면 구글 홈페이지로 보내기
+	
+	var ar = ['chrome']
+	var flag = false
+	
+	for(idx in ar){
+		if(navigator.userAgent.toLowerCase().indexOf(ar[idx]) >= 0) {
+			flag = true
+			break
+		}
+	}
+	if(flag == true){
+		window.location = "http://www.google.co.kr"
+	}
+</script>
+</html>

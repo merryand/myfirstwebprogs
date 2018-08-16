@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>배열 관련 함수</title>
+</head>
+<body>
+
+</body>
+<script>
+	//var ar = [ "차범근", "반바스텐", "굴리트", "클라이베르트", "베르캄프", "로번" ]
+	var ar = [ null, "반바스텐", "굴리트", "클라이베르트", "베르캄프", "로번" ]
+	/*
+	var first = ar.slice(0, 3)
+	alert(first)
+	var second = ar.slice(3, 6)
+	alert(second)
+
+	 //filter는 매개변수가 1개이고 Boolean을 리턴하는 함수를 매개변수로 받아서 true를 리턴하는 내용만 가지고
+	 //새로운 배열을 만들어서 리턴합니다.
+	 //element: 임시매개변수//4글자 이상인걸 리턴
+	 var result = ar.filter(function(element) {
+	 return element.length >= 4
+	 })
+
+	 alert(result)
+
+	 //'트'로 끝나는 데이터만 추출
+	 var result2 = ar.filter(function(element) {
+	 return element.charAt(element.length - 1) == '트'
+	 })
+
+	 alert(result2)
+
+	 //map은 리턴되는 데이터를 가지고 배열을 새로 생성
+	 result3 = ar.map(function(element) {
+	 return element.length
+	 })
+	
+	 alert(result3)
+
+	//result2가 null이 있면 오류 나서 주석처리
+	//null 처리
+	result4 = ar.map(function(element) {
+		if (element == null)
+			element = "이름없음"
+		return element
+	})
+
+	alert(result4)
+	 */
+
+	var json = '["HTML", "CSS", "JavaScript"]'
+
+	json = '{"language" : "Java", "db": "Oracle"}'
+
+	result = JSON.parse(json)
+	for (idx in result) {
+		document.writeln(idx + ":" + result[idx] + "<br/>")
+	}
+
+	window.open('https://daum.net', "다음", 'width=400, height=500, resizable=0')
+</script>
+</html>
