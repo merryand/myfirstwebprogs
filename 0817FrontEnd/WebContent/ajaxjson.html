@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+div {
+	margin: 10px;
+	border: 3px double Green;
+	border-radius: 10px;
+	float: left;
+	width: 120px;
+	height: 100px;
+	text-align: center;
+}
+
+h3:hover {
+	color: red;
+}
+</style>
+</head>
+<body>
+
+</body>
+<script>
+	var request = new XMLHttpRequest()
+	request.open('GET', 'data.json')
+	request.send('')
+
+	request.onreadystatechange = function() {
+
+		if (request.readyState == 4) {
+			if (request.status >= 200 && request.status < 300) {
+				//데이터 읽기
+				var json = request.responseText
+				//읽어온 데이터를 파싱
+				var ar = JSON.parse(json)
+
+				var output = ''
+				for (idx in ar) {
+					output += "<div>";
+					output += "<h3>" + ar[idx].name + "</h3>"
+					output += "<p>" + ar[idx].pos + "</p>"
+					output += "</div>"
+				}
+				document.body.innerHTML = output
+
+			} else if (request.status >= 400 && request.status < 500) {
+				alert("클라이언트 오류 : " + request.status)
+			}
+		}
+	}
+</script>
+</html>

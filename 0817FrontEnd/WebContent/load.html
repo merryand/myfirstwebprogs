@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>window.onload</title>
+<script>
+	//window가 모든 태그를 읽어서 메모리에 적재하고 난 후 수행
+	window.onload = function() {
+
+		//정규식 객체를 생성
+		var reg = /iphone/
+		//문자열
+		var str = "iphone은 스티븐 잡스의 아이디어 입니다."
+		if (reg.test(str))
+			document.getElementById("msg").innerHTML = "iphone이 존재합니다."
+		else
+			document.getElementById("msg").innerHTML = "iphone이 존재하지 않습니다."
+
+		var apple = "많은 사람들이, 뉴턴이 떨어진 사과를 맞고서, 만유인력의 법칙을 깨달았다고, 알고 있습니다."
+		//콤마를 기준으로 분할
+
+		var ar = apple.split(/,/)
+		for (idx in ar) {
+			alert(ar[idx])
+		}
+
+		var result = apple.replace(/,/, '-')
+		//var result = apple.replace(/,/g, '$&-')
+		alert(result)
+
+		document.getElementById("msg").innerHTML += "메시지"
+
+		//숫자가 있을 때 확인
+		reg = /[0-9]/
+		var str1 = "didididi3dididi3"
+		var str2 = "ajdfklajsfksjfksl"
+		//alert(reg.test(str1))
+		//alert(reg.test(str2))
+
+		//첫째 자리에 대괄호 이외의 것이 오면 false
+		reg = /^[a-zA-Z_$]/
+		str1 = "didididi3dididi3"
+		str2 = "1ajdfklajsfksjfksl"
+		alert(reg.test(str1))
+		alert(reg.test(str2))
+		
+	}
+</script>
+</head>
+<body>
+	<div id="msg"></div>
+</body>
+</html>

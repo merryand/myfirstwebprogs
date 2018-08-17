@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>기본 이벤트 처리</title>
+</head>
+<body>
+	<div id="msg"></div>
+	<input type="button" value="버튼" id="btn" />
+
+	<!-- form 안에 있는 submit 버튼이나 form을 submit하는 함수를 호출했을 때 register라는 함수를 호출하고 그 결과가 false이면 폼의 내용을 전송하지 않고 그 이외의 경우는 form의 내용을 전송합니다. -->
+	<form action="server.jsp" id="form" onsubmit="return register()">
+		<!-- key라는 함수의 결과가 false를 리턴하면 기본 기능을 수행하지 않습니다. keydown은 누른 키 값을 input에 출력하는 기본기능을 가지고 있는데 이 기능을 수행하지 않습니다. -->
+		이메일<input type="text" id="email" onkeydown="return key()" />
+		<div id="emailmsg"></div>
+		비밀번호<input type="password" id="pw1" />
+		<div id="pwmsg"></div>
+		비밀번호확인<input type="password" id="pw2" /> <br /> <input type="submit"
+			value="회원가입" /> <input type="button" value="메인으로" /><img
+			src="images/alpacaaa.png" id="image" />
+	</form>
+
+	<div id="outer">
+		외부
+		<div id="inner">내부</div>
+	</div>
+</body>
+<script>
+	function register(e) {
+		var event = e || window.event
+		
+		var pw1 = document.getElementById("pw1")
+		var pw2 = document.getElementById("pw2")
+		var pwmsg = document.getElementById("pwmsg")
+		
+		if(pw1.value != pw2.value) {
+			pwmsg.innerHTML = "두 개의 비밀번호는 일치해야 합니다."
+			pwmsg.style.color = "pink"
+			pw1.focus()
+			return false
+		}
+	}
+
+	document.getElementById("outer").addEventListener("click", function(e) {
+		var event = e || window.event
+		alert("외부에서 클릭")
+	})
+	document.getElementById("inner").addEventListener("click", function(e) {
+		var event = e || window.event
+		alert("내부에서 클릭")
+		//이벤트 전파를 막기 - 이벤트 버블링 막기
+		event.stopPropagation()
+	})
+
+	var img = document.getElementById("image")
+	var form = document.getElementById("form")
+	img.addEventListener("click", function(e) {
+		var event = e || window.event
+		//이벤트를 강제로 발생
+		form.submit()
+	})
+
+	//body 태그 내의 DOM 객체 찾아오기
+	var msg = document.getElementById("msg")
+	var btn = document.getElementById("btn")
+
+	var email = document.getElementById("email")
+	var emailmsg = document.getElementById("emailmsg")
+	//email에서 키보드를 눌렀을 때 이벤트 처리
+	//email.addEventListener("keydown", function(e) {
+		function key (e) {
+		var event = e || window.event
+		//누른 키보드 값 찾아오기
+		//IE 하위 브라우저와 다른 브라우저가 방법이 다릅니다.
+		var v = event.which ? event.which : event.keyCode
+		//alert(v)
+		if(v == 8 || v >= 65 && v <= 90) {
+			return true
+			}else{
+				return false
+			}
+	}
+
+	//포커스가 떠날 때 이벤트 처리
+	email.addEventListener("blur", function(e) {
+		var event = e || window.event
+		if (email.value.length < 6) {
+			emailmsg.innerHTML = "사용 불가능한 아이디입니다."
+			emailmsg.style.color = "red"
+		} else {
+			emailmsg.innerHTML = "사용 가능한 아이디입니다."
+			emailmsg.style.color = "blue"
+		}
+	})
+	btn.addEventListener("click", function(e) {
+		var event = e || window.event
+		msg.innerHTML = "버튼을 누르셨습니다"
+		msg.style.color = "blue"
+	})
+</script>
+</html>

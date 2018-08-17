@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>예외처리</title>
+<script>
+	try {
+		var ar = new Array(4300000000)
+	} catch (e) {
+		console.log(e.message)
+		console.log(e.name)
+	}
+	alert("예외가 발생하면 이거 안 나옴")
+</script>
+</head>
+<body>
+
+</body>
+</html>
