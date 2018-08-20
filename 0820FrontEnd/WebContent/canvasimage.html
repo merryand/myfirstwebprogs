@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>캔버스</title>
+</head>
+<body>
+	<canvas id="canvas1" width="400" height="400"></canvas>
+	<!--canvas id="canvas2" width="400" height="800"></canvas>-->
+</body>
+<script>
+	var canvas1 = document.getElementById("canvas1")
+	//컨텍스트 변수 만들기
+	var context1 = canvas1.getContext("2d")
+	//var canvas2 = document.getElementById("canvas2")
+	//컨텍스트 변수 만들기
+	//var context2 = canvas2.getContext("2d")
+
+	//출력할 이미지 객체 만들기
+	var image1 = new Image()
+	image1.src = "resources/white_ling.jpg"
+
+	//var image2 = new Image()
+	//image2.src = "resources/img.jpg"
+	
+	context1.beginPath()
+	//context1.arc(200,200, 150, 0, 2*Math.PI, true)
+	//이 영역만 그림을 출력하기
+	context1.moveTo(200,50)
+	context1.lineTo(350,350)
+	context1.lineTo(50,350)
+	context1.lineTo(200,50)
+	context1.clip()
+	
+	//이미지파일을 전부 읽어서 메모리에 로드 한 후 수행
+	image1.addEventListener("load", function() {
+		context1.drawImage(image1, 0, 0, 500, 500)
+	})
+/*
+	image2.addEventListener("load", function() {
+		//setInterval(func, 2000)
+	})
+
+	var idx = 0
+	var func = function()
+	{
+		context2.drawImage(image2, 133 * Math.floor(idx/3), 133 * Math.floor(idx%3), 133, 133, 100, 100, 260, 260)
+		idx = idx + 1
+		if(idx == 9)
+			idx = 0
+	}
+	*/
+</script>
+</html>

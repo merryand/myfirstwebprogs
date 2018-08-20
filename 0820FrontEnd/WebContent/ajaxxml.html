@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+<script>
+	//ajax 요청 객체 생성
+	var request = new XMLHttpRequest()
+	
+	//요청 주소 만들기
+	request.open ('GET', 'data.xml')
+	//서버에게 요청을 전송
+	request.send('')
+	
+	//ajax 요청 객체에 상태변화가 생기면 호출되는 콜백 메소드 등록
+	request.onreadystatechange = function() {
+		//서버가 응답을 하면
+		if(request.readyState == 4){
+			//서버에 응답 코드를 확인해서 200번대는 정상 응답
+			//400번대는 클라이언트 오류
+			//500번대는 서버 오류 - 서버를 안 만들고 해서 현재는 일어나지 않음
+			if(request.status >= 200 && request.status < 300) {
+				//데이터 가져오기 - XML
+				//alert(request.responseXML);
+				var xmlText = request.responseXML;
+				//원하는 태그 가져오기
+				var names = xmlText.getElementsByTagName("name")
+				var parts = xmlText.getElementsByTagName("part")
+				
+				var output = "<table border='1' align='center'>"
+				//자료가 여러종류가 되면 테이블헤드에 분류를 적어 주는 것이 좋음
+				output += "<tr><th>이름</th><th>부서</th></tr>"
+				//순회하면서 태그의 값 가져오기 - 명확한 배열이 아니라서 for-each로 순회하기 어려움
+				for(var i=0; i<names.length; i=i+1){
+					output += "<tr><td>"
+					var name = names[i].childNodes[0].nodeValue;
+					var part = parts[i].childNodes[0].nodeValue;
+					//alert(name)
+					//document.writeln(name + "<br/>")
+					output += name
+					output += "</td><td>"
+					output += part
+					output += "</td></tr>"
+				}
+				output +="</table>"
+				document.body.innerHTML = output
+			}
+			else if(request. status >= 400 && request.status < 500){
+				alert(request.status)
+			}
+		}
+	}
+	
+</script>
+</html>

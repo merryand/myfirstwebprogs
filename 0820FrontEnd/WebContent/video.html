@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>비디오 재생</title>
+</head>
+<body>
+	<video src="resources/IPhone3G.mov" controls="controls" id="video"></video>
+	<input type="button" value="재생" id="play" />
+	<input type="button" value="중지" id="stop" />
+	<span id="frame"></span>
+	
+	<!-- 배경음처럼 무한 반복하는 음원 재생 -->
+	<audio src="resources/Dual.mp3" controls="controls" autoplay="autoplay" loop="loop"></audio>
+</body>
+<script>
+	//video라는 id를 가진 객체를 찾아와서 video에 대입
+	var video = document.getElementById("video")
+	var playBtn = document.getElementById("play")
+	var stopBtn = document.getElementById("stop")
+	var frame = document.getElementById("frame")
+	
+	//play 버튼을 눌렀을 때 처리
+	playBtn.addEventListener("click", function(e){
+		var event = e || window.event;
+		if(video.played != false){
+		video.play();
+		}
+	})
+	
+	stopBtn.addEventListener("click", function(e){
+		var event = e || window.event;
+		video.pause();
+	})
+	
+	//video에 timeupdate 이벤트가 발생했을 때
+	//frame에 전체 재생 시간과 현재 재생 시간을 출력
+	//현재재생 시간은 currentTime 속성이고
+	//전체재생 시간은 duration 속성이 가지고 있습니다.
+	
+	video.addEventListener("timeupdate", function(e){
+		var event = e || window.event;
+		//소수점이 너무 길어서 소수점을 다 빼버림
+		frame.innerHTML = Math.round(video.currentTime) + "/" + Math.round(video.duration) 
+	})
+	
+	
+</script>
+</html>
