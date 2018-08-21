@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>위치 정보 사용</title>
+</head>
+<body>
+	<div id="map" style="width: 500px; height: 400px;"></div>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4450d65160fdb93664156b4eae6b8c9e"></script>
+	<script>
+		var container = document.getElementById('map');
+		navigator.geolocation.getCurrentPosition(function(location) {
+			var options = {
+				center : new daum.maps.LatLng(location.coords.latitude,
+						location.coords.longitude),
+				level : 3
+			};
+
+			var map = new daum.maps.Map(container, options);
+
+			map.addOverlayMapTypeId(daum.maps.MapTypeId.TRAFFIC);
+
+			// 마커가 표시될 위치입니다 
+			var markerPosition = new daum.maps.LatLng(location.coords.latitude,
+					location.coords.longitude);
+
+			// 마커를 생성합니다
+			var marker = new daum.maps.Marker({
+				position : markerPosition
+			});
+
+			// 마커가 지도 위에 표시되도록 설정합니다
+			marker.setMap(map);
+
+			// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+			// marker.setMap(null);    
+
+		}, function(error) {
+			alert(error.code)
+		});
+	</script>
+</body>
+<script>
+	/*
+	 navigator.geolocation.getCurrentPosition(function(location) {
+	 alert("위도" + location.coords.latitude);
+	 alert("경도" + location.coords.longitude);
+	 }, function(error) {
+	 alert(error.code)
+	 });
+	 */
+</script>
+</html>
