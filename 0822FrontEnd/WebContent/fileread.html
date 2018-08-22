@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>파일 읽기</title>
+</head>
+<body>
+	<h1>HTML5 File API</h1>
+	<!-- 파일을 선택할 수 있는 input -->
+	<input type="file" id="imgInp" />
+	<!-- 위에서 선택한 파일이 이미지 일 때 미리보기 영역 -->
+	<img id="img" width="200" height="200" border="1" />
+	
+	<input type="file" id="file" />
+	<!-- 인코딩 방식을 선택할 수 있는 select -->
+	<select id="encoding">
+		<option value="UTF-8">UTF-8</option>
+		<option value="ANSI">ANSI</option>
+		<option value="EUC-KR">EUC-KR</option>
+	</select>
+	<!-- 읽기를 수행할 버튼 -->
+	<input type="button" value="읽기" id="readbtn" />
+
+	<!-- 출력 영역 -->
+	<div>
+		<!-- 파일 이름 출력 영역 -->
+		<span id="fileName">파일 이름</span> <span id="fileSize">파일 크기</span>
+	</div>
+	<textarea id="content" rows="30" cols="70">
+	</textarea>
+</body>
+<script>
+	var imgInp = document.getElementById("imgInp")
+	var img = document.getElementById("img")
+
+	//파일의 선택이 변경될 때 수행할 내용
+	imgInp.addEventListener("change", function(e) {
+		//파일이 선택된 경우만 수행
+		if(imgInp.files && imgInp.files[0]){
+			var filename = imgInp.files[0].name
+			//파일이름의 마지막 3글자 가져오기
+			//substr 메소드와 length를 이용
+			//var ext = filename.substr(filename.length-3,filename.length)
+			//.뒤의 문자열 가져오기
+			//split 메소드 이용
+			var ar = filename.split(".")
+			ext = ar[ar.length-1]
+			
+			//그림 파일인지 확인 - 확장자 : jpg, gif, png
+			if(ext.toLowerCase() != "jpg" && ext.toLowerCase() != "gif" && ext.toLowerCase() != "png"){
+				alert("그림 파일을 선택하세요.")
+				return
+			}
+			//파일의 내용을 읽기 위한 객체 만들기
+			var imgreader = new FileReader()
+			imgreader.readAsDataURL(imgInp.files[0])
+			
+			//파일의 내용을 전부 읽으면
+			imgreader.addEventListener("load", function(e){
+				img.src = imgreader.result;
+			})
+		}
+	})
+
+	var file = document.getElementById("file")
+	var readbtn = document.getElementById("readbtn")
+	var encodinglist = document.getElementById("encoding")
+
+	var fileName = document.getElementById("fileName")
+	var fileSize = document.getElementById("fileSize")
+	var content = document.getElementById("content")
+
+	readbtn.addEventListener("click", function(e) {
+		//선택한 파일을 가져오기 = blob(바이트 코드의 모임)로 가져옵니다.
+		//파일은 여러 개를 선택할 수 있기 때문에 선택한 파일목록을
+		//files라는 파일의 배열로 리턴하기 때문에
+		//배열의 첫번째 요소를 가져와야 합니다.
+		var selectfile = file.files[0]
+
+		//파일 이름과 크기만 출력
+		fileName.innerHTML = selectfile.name
+		fileSize.innerHTML = "(" + selectfile.size + " byte)"
+
+		//파일의 내용을 읽을 객체를 생성
+		var reader = new FileReader()
+		//텍스트 파일 읽기 - 비동기적으로 파일 읽기
+		//파일의 내용을 전부 읽으면 onload 이벤트가 발생합니다.
+		reader.readAsText(selectfile,
+				encodinglist.options[encodinglist.selectedIndex].value)
+		//파일의 내용을 전부 읽으면 수행할 내용
+		reader.addEventListener("load", function() {
+			content.value = reader.result;
+		})
+	})
+</script>
+</html>

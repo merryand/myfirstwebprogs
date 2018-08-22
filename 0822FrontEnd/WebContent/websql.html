@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>web sql</title>
+</head>
+<body>
+	<fieldset>
+		<legend>데이터 입력 영역</legend>
+		이름 : <input type="text" size="20" id="name" /><br /> 나이 : <input
+			type="text" size="20" id="age" /><br /> 주소 : <input type="text"
+			size="40" id="address" /><br /> <input type="button" value="삽입"
+			id="addbtn" />
+	</fieldset>
+	<fieldset>
+		<legend>데이터 출력 영역</legend>
+		<select id="list" size="10"></select> <input type="button" value="삭제"
+			id="deletebtn" />
+	</fieldset>
+</body>
+<script>
+	//자바스크립트에서 사용할 태그 찾아오기 - 변수명 name이 오류가 나서 name1로 변수명을 바꿈
+	var name1 = document.getElementById("name")
+	var age = document.getElementById("age")
+	var address = document.getElementById("address")
+	var addbtn = document.getElementById("addbtn")
+	var list = document.getElementById("list")
+	var deletebtn = document.getElementById("deletebtn")
+
+	//데이터베이스 변수 생성 - 자주 쓸 거라 변수를 바깥에 만듬
+	var db
+
+	//데이터베이스를 초기화해주는 메소드
+	function init() {
+		//데이터베이스 생성 - 이름, 버전, 사용자가 볼 이름, 크기
+		db = window.openDatabase("AddressBook", "1", "AddressBookDB",
+				"1024*1024")
+		//SQL을 실행하기 위한 트랜잭션 생성
+		db
+				.transaction(function(tx) {
+					//테이블을 생성해주는 sql 실행
+					tx
+							.executeSql("CREATE TABLE IF NOT EXISTS addressbook(num integer primary key autoincrement, name, age integer, address)")
+				})
+		// 데이터를 읽어오는 함수를 호출
+		showData()
+	}
+
+	//데이터를 읽어오는 함수
+	function showData() {
+		db.transaction(function(tx) {
+			tx.executeSql("select * from addressbook", [], function(tx, rs) {
+				//list를 초기화 - 태그안의 내용 삭제
+				list.innerHTML = ""
+				//select 구문의 결과 가져오기 - map의 배열을 만들어옴
+				var rows = rs.rows;
+				//반복문을 돌려서 읽은 데이터를 list에 출력
+				for (var i = 0; i < rows.length; i = i + 1) {
+					//하나의 행 가져오기
+					var row = rows.item(i)
+					//select 안에 삽입할 Option 만들기
+					//앞의 매개변수는 화면에 출력될 내용이고
+					//두번째 매개변수는 value 값입니다.
+					var option = new Option(row.num + "\t" + row.name + "\t"
+							+ row.age + "\t" + row.address, row.num)
+					//select에 추가
+					list.options[list.options.length] = option
+				}
+			})
+		})
+	}
+
+	//페이지의 내용을 읽어서 메모리에 로드하자 마자
+	window.addEventListener("load", function(e) {
+		//초기화 메소드 호출
+		init()
+	})
+
+	//삽입버튼을 눌렀을 때 수행할 내용
+	addbtn
+			.addEventListener(
+					"click",
+					function(e) {
+						//입력된 값 읽어오기
+						var namevalue = name1.value;
+						var agevalue = age.value;
+						var addressvalue = address.value;
+
+						//삽입하는 sql 실행하기
+						db
+								.transaction(function(tx) {
+									tx
+											.executeSql(
+													"insert into addressbook(name, age, address) values(?,?,?)",
+													[ namevalue, agevalue,
+															addressvalue ],
+													function(tx, rs) {
+														alert("삽입성공");
+														//데이터 다시 출력
+														showData();
+													})
+								})
+					})
+	//삭제 버튼을 눌렀을 때 처리
+	deletebtn.addEventListener("click", function(e) {
+		//리스트에서 선택한 행번호 가져오기
+		//selectedIndex
+		var idx = list.selectedIndex;
+		if (idx < 0) {
+			alert("선택하고 삭제를 누르세요")
+		}
+		//선택한 항목의 value(num 값) 가져오기
+		var num = list.options[idx].value;
+		//데이터베이스에서 삭제하기
+		db.transaction(function(tx) {
+			tx.executeSql("delete from addressbook where num=?", [ num ],
+					function(tx, rs) {
+						alert("삭제 성공")
+						//데이터 다시 출력
+						showData();
+					})
+		})
+	})
+</script>
+</html>
