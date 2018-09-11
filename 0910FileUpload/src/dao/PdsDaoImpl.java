@@ -3,6 +3,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -101,5 +103,30 @@ public class PdsDaoImpl implements PdsDao {
 			close();
 		}
 		return result;
+	}
+
+	@Override
+	public List<Pds> listPds() {
+		List<Pds> list = new ArrayList<Pds>();
+		try {
+			dbConnect();
+			// pds 테이블의 전체 데이터를 가져오는 sql
+			pstmt = con.prepareStatement("select * from pds");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Pds pds = new Pds();
+				pds.setCode(rs.getInt("code"));
+				pds.setFilename(rs.getString("filename"));
+				pds.setFilesize(rs.getInt("filesize"));
+				pds.setDescription(rs.getString("description"));
+				list.add(pds);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 	}
 }

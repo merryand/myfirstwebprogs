@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import service.FileUploadService;
 import service.FileUploadServiceImpl;
 import service.PdsService;
 import service.PdsServiceImpl;
+import vo.Pds;
 
 @WebServlet("*.file")
 public class FileController extends HttpServlet {
@@ -83,17 +85,26 @@ public class FileController extends HttpServlet {
 			boolean result = pdsService.insertPds(request);
 			if (result == true) {
 				// 메인 페이지로 리다이렉트
-				response.sendRedirect("/");
+				response.sendRedirect("./");
 			} else {
 				// 실패한 경우는 데이터 삽입 페이지로 이동
 				response.sendRedirect("input.file");
 			}
 			break;
+		case "list.file":
+			List<Pds> list = pdsService.listPds(request);
+
+			request.setAttribute("list", list);
+
+			dispatcher = request.getRequestDispatcher("views/list.jsp");
+			dispatcher.forward(request, response);
+
+			break;
 		}
 
 	}
 
-//post 요청이 왔을 때 호출되는 메소
+//post 요청이 왔을 때 호출되는 메소드
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// post 요청이 왔을 때 doGet을 호출
